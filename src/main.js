@@ -2,15 +2,23 @@ import Vue from 'vue';
 import iView from 'iview';
 import {router} from './router/index';
 import {appRouter} from './router/router';
-import store from './store';
 import App from './app.vue';
 import '@/locale';
 import 'iview/dist/styles/iview.css';
 import VueI18n from 'vue-i18n';
 import util from '@/libs/util';
+import axios from '@/libs/axios';
+import store from '@/vuex/store';
 
 Vue.use(VueI18n);
 Vue.use(iView);
+
+/**
+ * axios 配置
+ * */
+Vue.use(axios);
+Vue.http.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+Vue.http.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
 
 new Vue({
     el: '#app',

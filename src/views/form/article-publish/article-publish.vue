@@ -94,22 +94,11 @@
                             <Icon type="navicon-round"></Icon>
                             分类目录
                         </p>
-                        <Tabs type="card">
-                            <TabPane label="所有分类目录">
-                                <div class="classification-con">
-                                    <Tree :data="classificationList" @on-check-change="setClassificationInAll" show-checkbox></Tree>
-                                </div>
-                            </TabPane>
-                            <TabPane label="常用目录">
-                                <div class="classification-con">
-                                    <CheckboxGroup v-model="offenUsedClassSelected" @on-change="setClassificationInOffen">
-                                        <p v-for="item in offenUsedClass" :key="item.title">
-                                            <Checkbox :label="item.title">{{ item.title }}</Checkbox>
-                                        </p>
-                                    </CheckboxGroup>
-                                </div>
-                            </TabPane>
-                        </Tabs>
+                        <CheckboxGroup v-model="offenUsedClassSelected" @on-change="setClassificationInOffen">
+                            <p v-for="item in offenUsedClass" :key="item.title">
+                                <Checkbox :label="item.title">{{ item.title }}</Checkbox>
+                            </p>
+                        </CheckboxGroup>
                     </Card>
                 </div>
                 <div class="margin-top-10">
@@ -325,77 +314,16 @@ export default {
             {value: 'babel'},
             {value: 'eslint'}
         ];
-        this.classificationList = [
-            {
-                title: 'Vue实例',
-                expand: true,
-                children: [
-                    {
-                        title: '数据与方法',
-                        expand: true
-                    },
-                    {
-                        title: '生命周期',
-                        expand: true
-                    }
-                ]
-            },
-            {
-                title: 'Class与Style绑定',
-                expand: true,
-                children: [
-                    {
-                        title: '绑定HTML class',
-                        expand: true,
-                        children: [
-                            {
-                                title: '对象语法',
-                                expand: true
-                            },
-                            {
-                                title: '数组语法',
-                                expand: true
-                            },
-                            {
-                                title: '用在组件上',
-                                expand: true
-                            }
-                        ]
-                    },
-                    {
-                        title: '生命周期',
-                        expand: true
-                    }
-                ]
-            },
-            {
-                title: '模板语法',
-                expand: true,
-                children: [
-                    {
-                        title: '插值',
-                        expand: true
-                    },
-                    {
-                        title: '指令',
-                        expand: true
-                    },
-                    {
-                        title: '缩写',
-                        expand: true
-                    }
-                ]
-            }
-        ];
+
         this.offenUsedClass = [
             {
-                title: 'vue实例'
+                title: 'JS相关'
             },
             {
-                title: '生命周期'
+                title: 'CSS相关'
             },
             {
-                title: '模板语法'
+                title: 'JAVA相关'
             },
             {
                 title: '插值'
