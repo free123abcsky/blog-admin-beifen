@@ -27,12 +27,15 @@
     "iview": "^2.7.4",
     "iview-area": "^1.5.12",
     "js-cookie": "^2.2.0",
+    "mavon-editor": "^2.4.12",
     "rasterizehtml": "^1.2.4",
     "simplemde": "^1.11.2",
     "sortablejs": "^1.7.0",
     "tinymce": "^4.7.3",
+    "lodash": "^4.17.4",
     "vue": "^2.5.9",
     "vue-router": "^3.0.1",
+    "vue-moment": "^3.1.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

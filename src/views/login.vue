@@ -13,7 +13,7 @@
                 <div class="form-con">
                     <Form ref="loginForm" :model="form" :rules="rules">
                         <FormItem prop="userName">
-                            <Input v-model="form.userName" placeholder="请输入用户名">
+                            <Input v-model="form.email" placeholder="请输入用户名">
                                 <span slot="prepend">
                                     <Icon :size="16" type="person"></Icon>
                                 </span>
@@ -38,16 +38,21 @@
 </template>
 
 <script>
+
+import Vue from 'vue';
 import Cookies from 'js-cookie';
+import {Login} from "../api/api_auth";
+import API from "../config";
+import {mapState, mapActions} from 'vuex';
 export default {
     data () {
         return {
             form: {
-                userName: 'iview_admin',
-                password: ''
+                email: '990080536@qq.com',
+                password: '123456abc'
             },
             rules: {
-                userName: [
+                email: [
                     { required: true, message: '账号不能为空', trigger: 'blur' }
                 ],
                 password: [
@@ -57,20 +62,36 @@ export default {
         };
     },
     methods: {
+        ...mapActions({
+            setLoginState: 'setLoginState',
+            setCommentInfoStatus: 'setCommentInfoStatus',
+        }),
         handleSubmit () {
             this.$refs.loginForm.validate((valid) => {
                 if (valid) {
-                    Cookies.set('user', this.form.userName);
-                    Cookies.set('password', this.form.password);
-                    this.$store.commit('setAvator', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448484253,3685836170&fm=27&gp=0.jpg');
-                    if (this.form.userName === 'iview_admin') {
-                        Cookies.set('access', 0);
-                    } else {
-                        Cookies.set('access', 1);
-                    }
-                    this.$router.push({
-                        name: 'home_index'
-                    });
+
+                    Login(this.form).then((response) => {
+
+                        //权限信息
+                        this.$localStorage.$set('authorization', {
+                            token: response.token,
+                            time: new Date().getTime()
+                        });
+                        //我进行评论的信息
+                        this.$localStorage.$set('commentInfo', {
+                            "name": API.MY,
+                            "email": API.EMAIL
+                        });
+                        this.setCommentInfoStatus(true);
+                        // 设置请求的token
+                        Vue.http.defaults.headers.common['authorization'] = "Bearer " + response.token;
+                        this.setLoginState(true);//设置全局登录状态
+                        this.$router.replace({//跳转
+                            name: 'home_index'
+                        });
+                    }, (err)=> {
+                        this.$Message.warning(err.msg)
+                    })
                 }
             });
         }

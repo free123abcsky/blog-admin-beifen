@@ -30,6 +30,18 @@ html,body{
     background: #f0f0f0;
     overflow: hidden;
 }
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+*::-webkit-scrollbar-track-piece {
+    background: #eee
+}
+
+*::-webkit-scrollbar-thumb:vertical {
+    background: #666
+}
 .app-main{
     width: 100%;
     height: 100%;

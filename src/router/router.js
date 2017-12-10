@@ -93,10 +93,22 @@ export const appRouter = [
         title: '文章管理',
         component: Main,
         children: [
-            { path: 'index', title: '文章管理', name: 'article_index', component: resolve => { require(['@/views/article/article.vue'], resolve); } }
+            {
+                path: 'publish',
+                icon: 'compose',
+                name: 'publish',
+                title: '文章发布',
+                component: resolve => { require(['@/views/article/article-publish.vue'], resolve); }
+            },
+            {
+                path: 'list',
+                icon: 'ios-list-outline',
+                name: 'list',
+                title: '文章列表',
+                component: resolve => { require(['@/views/article/article.vue'], resolve); }
+            }
         ]
     },
-
     //
     // {
     //     path: '/access',
